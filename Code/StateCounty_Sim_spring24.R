@@ -1,7 +1,7 @@
 
 
 
-data <-  read_delim(here("Data", "ExternalDeathsCounty.txt"))  %>% 
+data <-  read_delim(here("..", "..", "..", "Downloads", "external.txt"))  %>% 
   filter(County != "District of Columbia, DC") %>% 
   group_by(County) %>% 
   mutate(Suppress = if_else(any(Deaths == "Suppressed") | any(Deaths == "Missing"), 1, 0)) %>% 
@@ -22,7 +22,7 @@ data <-  read_delim(here("Data", "ExternalDeathsCounty.txt"))  %>%
 
 ##### so lets have treatment effects of 2%, 5%, and 10%, 20%
 pct_effect <- c(0.025, 0.05, 0.10, 0.15)
-treated <- c(6, 12, 24)
+treated <- 12#c(6, 12, 24)
 iterations <- 500
 
 simulation_para <- bind_rows(replicate(iterations, expand_grid(treated, pct_effect), simplify = FALSE))
@@ -40,7 +40,7 @@ foreach::getDoParRegistered()
 foreach::getDoParWorkers()
 
 registerDoRNG(123)
-tic("sim runs")
+tic("sim county state run")
 sim_results <- foreach(i = 1:dim(simulation_para)[1],
                        .verbose = FALSE,
                        .errorhandling = "stop",

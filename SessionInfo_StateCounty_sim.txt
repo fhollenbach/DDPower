@@ -1,0 +1,124 @@
+─ Session info ─────────────────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.4.0 (2024-04-24)
+ os       macOS Sonoma 14.5
+ system   aarch64, darwin20
+ ui       RStudio
+ language (EN)
+ collate  en_US.UTF-8
+ ctype    en_US.UTF-8
+ tz       Europe/Copenhagen
+ date     2024-05-30
+ rstudio  2024.04.1+748 Chocolate Cosmos (desktop)
+ pandoc   3.2 @ /opt/homebrew/bin/pandoc
+
+─ Packages ─────────────────────────────────────────────────────────────────────────
+ ! package         * version    date (UTC) lib source
+ P abind             1.4-5      2016-07-21 [?] RSPM
+ P arrow           * 16.1.0     2024-05-25 [?] RSPM
+ P assertthat        0.2.1      2019-03-21 [?] CRAN (R 4.4.0)
+ P backports         1.5.0      2024-05-23 [?] RSPM
+ P bit               4.0.5      2022-11-15 [?] RSPM
+ P bit64             4.0.5      2020-08-30 [?] RSPM
+ P BMisc             1.4.6      2024-03-09 [?] RSPM
+ P broom           * 1.0.6      2024-05-17 [?] RSPM
+ P cachem            1.1.0      2024-05-16 [?] RSPM
+ P car               3.1-2      2023-03-30 [?] RSPM
+ P carData           3.0-5      2022-01-06 [?] RSPM
+ P cli               3.6.2      2023-12-11 [?] CRAN (R 4.4.0)
+ P codetools         0.2-20     2024-03-31 [?] CRAN (R 4.4.0)
+ P colorspace        2.1-0      2023-01-23 [?] RSPM
+ P data.table      * 1.15.4     2024-03-30 [?] RSPM
+ P devtools        * 2.4.5      2022-10-11 [?] CRAN (R 4.4.0)
+ P did             * 2.1.2      2022-07-20 [?] RSPM
+ P did2s           * 1.0.2      2023-04-07 [?] CRAN (R 4.4.0)
+ P didimputation   * 0.3.0      2022-08-25 [?] RSPM
+ P digest            0.6.35     2024-03-11 [?] CRAN (R 4.4.0)
+ P doParallel      * 1.0.17     2022-02-07 [?] CRAN (R 4.4.0)
+ P doRNG           * 1.8.6      2023-01-16 [?] CRAN (R 4.4.0)
+ P dplyr           * 1.1.4      2023-11-17 [?] RSPM
+ P dreamerr          1.4.0      2023-12-21 [?] RSPM
+ P ellipsis          0.3.2      2021-04-29 [?] RSPM
+ P etwfe           * 0.4.0      2024-02-27 [?] RSPM
+ P fansi             1.0.6      2023-12-08 [?] RSPM
+ P fastmap           1.2.0      2024-05-15 [?] RSPM
+ P fixest          * 0.12.1     2024-05-23 [?] https://fastverse.r-universe.dev (R 4.4.0)
+ P forcats         * 1.0.0      2023-01-29 [?] RSPM
+ P foreach         * 1.5.2      2022-02-02 [?] CRAN (R 4.4.0)
+ P Formula           1.2-5      2023-02-24 [?] RSPM
+ P fs                1.6.4      2024-04-25 [?] CRAN (R 4.4.0)
+ P generics          0.1.3      2022-07-05 [?] RSPM
+ P ggplot2         * 3.5.1      2024-04-23 [?] RSPM
+ P ggpubr            0.6.0      2023-02-10 [?] RSPM
+ P ggsignif          0.6.4      2022-10-13 [?] RSPM
+ P glue              1.7.0      2024-01-09 [?] CRAN (R 4.4.0)
+ P gtable            0.3.5      2024-04-22 [?] RSPM
+ P here            * 1.0.1      2020-12-13 [?] RSPM
+ P hms               1.1.3      2023-03-21 [?] RSPM
+ P htmltools         0.5.8.1    2024-04-04 [?] CRAN (R 4.4.0)
+ P htmlwidgets       1.6.4      2023-12-06 [?] RSPM
+ P httpuv            1.6.15     2024-03-26 [?] CRAN (R 4.4.0)
+ P insight           0.19.11    2024-05-12 [?] RSPM
+ P iterators       * 1.0.14     2022-02-05 [?] CRAN (R 4.4.0)
+ P knitr             1.46       2024-04-06 [?] CRAN (R 4.4.0)
+ P later             1.3.2      2023-12-06 [?] CRAN (R 4.4.0)
+ P lattice           0.22-6     2024-03-20 [?] CRAN (R 4.4.0)
+ P lifecycle         1.0.4      2023-11-07 [?] CRAN (R 4.4.0)
+ P lubridate       * 1.9.3      2023-09-27 [?] RSPM
+ P magrittr          2.0.3      2022-03-30 [?] RSPM
+ P marginaleffects   0.20.1     2024-05-08 [?] RSPM
+ P Matrix            1.7-0      2024-03-22 [?] CRAN (R 4.4.0)
+ P memoise           2.0.1      2021-11-26 [?] CRAN (R 4.4.0)
+ P mime              0.12       2021-09-28 [?] CRAN (R 4.4.0)
+ P miniUI            0.1.1.1    2018-05-18 [?] CRAN (R 4.4.0)
+ P modelsummary    * 2.1.0      2024-05-19 [?] RSPM
+ P munsell           0.5.1      2024-04-01 [?] RSPM
+ P nlme              3.1-164    2023-11-27 [?] CRAN (R 4.4.0)
+ P numDeriv          2016.8-1.1 2019-06-06 [?] RSPM
+ P pillar            1.9.0      2023-03-22 [?] RSPM
+ P pkgbuild          1.4.4      2024-03-17 [?] RSPM
+ P pkgconfig         2.0.3      2019-09-22 [?] RSPM
+ P pkgload           1.3.4      2024-01-16 [?] RSPM
+ P profvis           0.3.8      2023-05-02 [?] CRAN (R 4.4.0)
+ P promises          1.3.0      2024-04-05 [?] CRAN (R 4.4.0)
+ P purrr           * 1.0.2      2023-08-10 [?] RSPM
+ P R6                2.5.1      2021-08-19 [?] CRAN (R 4.4.0)
+ P Rcpp              1.0.12     2024-01-09 [?] RSPM
+ P readr           * 2.1.5      2024-01-10 [?] RSPM
+ P remotes           2.5.0      2024-03-17 [?] CRAN (R 4.4.0)
+   renv            * 1.0.7      2024-04-11 [1] CRAN (R 4.4.0)
+ P rlang             1.1.3      2024-01-10 [?] CRAN (R 4.4.0)
+ P rngtools        * 1.5.2      2021-09-20 [?] CRAN (R 4.4.0)
+ P rprojroot         2.0.4      2023-11-05 [?] RSPM
+ P rstatix           0.7.2      2023-02-01 [?] RSPM
+ P rstudioapi        0.16.0     2024-03-24 [?] RSPM
+ P sandwich          3.1-0      2023-12-11 [?] RSPM
+ P scales            1.3.0      2023-11-28 [?] RSPM
+ P sessioninfo       1.2.2      2021-12-06 [?] CRAN (R 4.4.0)
+ P shiny             1.8.1.1    2024-04-02 [?] CRAN (R 4.4.0)
+ P stringi           1.8.4      2024-05-06 [?] RSPM
+ P stringmagic       1.1.2      2024-04-30 [?] RSPM
+ P stringr         * 1.5.1      2023-11-14 [?] RSPM
+ P tables            0.9.25     2024-04-13 [?] RSPM
+ P tibble          * 3.2.1      2023-03-20 [?] RSPM
+ P tictoc          * 1.2.1      2024-03-18 [?] CRAN (R 4.4.0)
+ P tidyr           * 1.3.1      2024-01-24 [?] RSPM
+ P tidyselect        1.2.1      2024-03-11 [?] RSPM
+ P tidyverse       * 2.0.0      2023-02-22 [?] RSPM
+ P timechange        0.3.0      2024-01-18 [?] RSPM
+ P tzdb              0.4.0      2023-05-12 [?] RSPM
+ P urlchecker        1.0.1      2021-11-30 [?] CRAN (R 4.4.0)
+ P usethis         * 2.2.3      2024-02-19 [?] CRAN (R 4.4.0)
+ P utf8              1.2.4      2023-10-22 [?] RSPM
+ P vctrs             0.6.5      2023-12-01 [?] RSPM
+ P withr             3.0.0      2024-01-16 [?] RSPM
+ P xfun              0.44       2024-05-15 [?] RSPM
+ P xtable            1.8-4      2019-04-21 [?] RSPM
+ P zoo               1.8-12     2023-04-13 [?] RSPM
+
+ [1] /Users/fho.egb/Documents/GitHub/DDPower/renv/library/macos/R-4.4/aarch64-apple-darwin20
+ [2] /Users/fho.egb/Library/Caches/org.R-project.R/R/renv/sandbox/macos/R-4.4/aarch64-apple-darwin20/f7156815
+
+ P ── Loaded and on-disk path mismatch.
+
+────────────────────────────────────────────────────────────────────────────────────

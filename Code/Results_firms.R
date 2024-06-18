@@ -6,7 +6,21 @@ library(arrow)
 
 datasets <- open_dataset(here("..", "SimResults_firms"))
 
+res_mean_sd <- datasets %>%
+  filter(t == -100) %>% 
+  select(iteration, pretreatment_dv, sd_dv, DV) %>% 
+  collect() 
 
+
+results_mean_sd <- res_mean_sd %>% 
+  group_by(iteration) %>%
+  summarize(pretreatment_dv = unique(pretreatment_dv), sd_dv = unique(sd_dv), DV = unique(DV))
+rm(res_mean_sd)
+
+results_mean_sd %>% 
+  mutate(mean_sd_ratio = pretreatment_dv/sd_dv) %>% 
+  group_by(DV) %>% 
+  summarize(mean_sd_ratio = mean(mean_sd_ratio))
 
 theme_mfx <- function() {
   theme_minimal(base_family = "IBM Plex Sans Condensed") +
@@ -130,7 +144,8 @@ summary_effect_prop <- results %>%
             share_sign = mean(Significant),
             rmse = my_rmse(estimate, true_att)) %>%
   mutate(prop_treated = factor(prop_treated, levels = c(0.1, 0.2, 0.4, 0.6), labels = c("10%", "20%", "40%", "60%"), order = TRUE),
-         ate = factor(pct_att_mean, levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
+         ate = factor(pct_att_mean, levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE)) %>% 
+  filter(ate != "15%")
 
 ## lowest power , woah?
 min(summary_effect_prop$share_sign, na.rm = T)
@@ -144,7 +159,8 @@ summary_by_sign_effect_prop <- results %>%
   summarize(exageration_ratio = mean(exageration_ratio, na.rm = TRUE),
             Pct_wrong_sign = mean(wrong_sign)*100)  %>%
   mutate(prop_treated = factor(prop_treated, levels = c(0.1, 0.2, 0.4, 0.6), labels = c("10%", "20%", "40%", "60%"), order = TRUE),
-         ate = factor(pct_att_mean, levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
+         ate = factor(pct_att_mean, levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE)) %>% 
+  filter(ate != "15%")
 
 ### max wrong sign
 max(summary_by_sign_effect_prop$Pct_wrong_sign)
@@ -194,20 +210,20 @@ ggsave(here("..", "output", "coverage_prop_firms_logrev.pdf"), plot = p, device 
 pl <-  ggplot(data = summary_effect_prop[summary_effect_prop$prop_treated == "10%", ], aes(y = CI_size, x = ate, color = method, group = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "5 Treated Firms", y="CI Length", x = "") + scale_color_manual(name="Method", values = color_main) + ylim(0, 2)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "5 Treated Firms", y="CI Length", x = "") + scale_color_manual(name="Method", values = color_main) + ylim(0, 1.5)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2))
 
 
 pm <-  ggplot(data = summary_effect_prop[summary_effect_prop$prop_treated == "20%", ], aes(y = CI_size, x = ate , color = method, group = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "10 Treated Firms", y="", x = "ATT in % of Mean") + scale_color_manual(name="Method", values = color_main) + ylim(0, 2) #+ coord_flip()
+pm <- pm + labs(subtitle = "10 Treated Firms", y="", x = "ATT in % of Mean") + scale_color_manual(name="Method", values = color_main) + ylim(0, 1.5) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 pr <-  ggplot(data = summary_effect_prop[summary_effect_prop$prop_treated == "40%", ], aes(y = CI_size, x = ate, color = method, group = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "20 Treated Firms", y="", x = "") + scale_color_manual(name="Method", values = color_main) + ylim(0, 2) #+ coord_flip()
+pr <- pr + labs(subtitle = "20 Treated Firms", y="", x = "") + scale_color_manual(name="Method", values = color_main) + ylim(0, 1.5) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 
@@ -323,7 +339,7 @@ pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + geom_hline(yintercept = 1, color = "red", size = .75, alpha = 0.5)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
 pl <- pl + labs(subtitle = "10 Treated Firms", y="Exaggeration \nRatio", x = "") + scale_color_manual(name="Method", values = color_main)
-pl <- pl + guides(col = guide_legend(nrow = 2)) + scale_y_continuous(limits = c(0, 7))
+pl <- pl + guides(col = guide_legend(nrow = 2)) + scale_y_continuous(limits = c(0, 6))
 
 
 pm <-  ggplot(data = summary_by_sign_effect_prop[summary_by_sign_effect_prop$prop_treated == "20%", ], aes(y = exageration_ratio, x = ate, color = method))
@@ -331,7 +347,7 @@ pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + geom_hline(yintercept = 1, color = "red", size = .75, alpha = 0.5)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
 pm <- pm + labs(subtitle = "20 Treated Firms", y="", x = "ATT in % of Mean") + scale_color_manual(name="Method", values = color_main)
-pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + scale_y_continuous(limits = c(0, 7))
+pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + scale_y_continuous(limits = c(0, 6))
 
 
 pr <-  ggplot(data = summary_by_sign_effect_prop[summary_by_sign_effect_prop$prop_treated == "40%", ], aes(y = exageration_ratio, x = ate, color = method))
@@ -339,7 +355,7 @@ pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + geom_hline(yintercept = 1, color = "red", size = .75, alpha = 0.5)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
 pr <- pr + labs(subtitle = "40 Treated Firms", y="", x = "") + scale_color_manual(name="Method", values = color_main)
-pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + scale_y_continuous(limits = c(0, 7))
+pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + scale_y_continuous(limits = c(0, 6))
 
 
 p <- (pl + pm + pr)/guide_area() + plot_layout(guides = 'collect') +
@@ -465,7 +481,8 @@ summary_effect_prop <- results %>%
             share_sign = mean(Significant),
             rmse = my_rmse(estimate, true_att)) %>%
   mutate(prop_treated = factor(prop_treated, levels = c(0.1, 0.2, 0.4, 0.6), labels = c("10%", "20%", "40%", "60%"), order = TRUE),
-         ate = factor(pct_att_mean, levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
+         ate = factor(pct_att_mean, levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE)) %>% 
+  filter(ate != "15%")
 
 ## lowest power , woah?
 min(summary_effect_prop$share_sign, na.rm = T)
@@ -479,7 +496,8 @@ summary_by_sign_effect_prop <- results %>%
   summarize(exageration_ratio = mean(exageration_ratio, na.rm = TRUE),
             Pct_wrong_sign = mean(wrong_sign)*100)  %>%
   mutate(prop_treated = factor(prop_treated, levels = c(0.1, 0.2, 0.4, 0.6), labels = c("10%", "20%", "40%", "60%"), order = TRUE),
-         ate = factor(pct_att_mean, levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
+         ate = factor(pct_att_mean, levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE)) %>% 
+  filter(ate != "15%")
 
 ### max wrong sign
 max(summary_by_sign_effect_prop$Pct_wrong_sign)
@@ -529,20 +547,20 @@ ggsave(here("..", "output", "coverage_prop_firms_roa.pdf"), plot = p, device = c
 pl <-  ggplot(data = summary_effect_prop[summary_effect_prop$prop_treated == "10%", ], aes(y = CI_size, x = ate, color = method, group = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "5 Treated Firms", y="CI Length", x = "") + scale_color_manual(name="Method", values = color_main) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "5 Treated Firms", y="CI Length", x = "") + scale_color_manual(name="Method", values = color_main) + ylim(0, 75)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2))
 
 
 pm <-  ggplot(data = summary_effect_prop[summary_effect_prop$prop_treated == "20%", ], aes(y = CI_size, x = ate , color = method, group = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "10 Treated Firms", y="", x = "ATT in % of Mean") + scale_color_manual(name="Method", values = color_main) + ylim(0, 1) #+ coord_flip()
+pm <- pm + labs(subtitle = "10 Treated Firms", y="", x = "ATT in % of Mean") + scale_color_manual(name="Method", values = color_main) + ylim(0, 75) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 pr <-  ggplot(data = summary_effect_prop[summary_effect_prop$prop_treated == "40%", ], aes(y = CI_size, x = ate, color = method, group = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "20 Treated Firms", y="", x = "") + scale_color_manual(name="Method", values = color_main) + ylim(0, 1) #+ coord_flip()
+pr <- pr + labs(subtitle = "20 Treated Firms", y="", x = "") + scale_color_manual(name="Method", values = color_main) + ylim(0, 75) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 
@@ -823,12 +841,13 @@ rm(imp1, imp2, imp3, imp4, imp5, imp6, imp7, imp8)
 rm(cdh1, cdh2, cdh3, cdh4, cdh5, cdh6, cdh7, cdh8)
 rm(step1, step2, step3, step4, step5, step6, step7, step8)
 
-results <- bind_rows(results, cdh, stepwise) %>% ### no imp stata, no imp loo for now
+results <- bind_rows(results, cdh, stepwise, imp_loo) %>% ### no imp stata, no imp loo for now
   mutate(method = case_when(method == "CdH" ~ "dCDH",
                             method == "CSA" ~ "CS",
                             method == "Mundlak" ~ "ETWFE",
+                            method == "BJS Stata LOO" ~ "BJS Loo",
                             TRUE ~ method),
-         method = factor(method, levels = c("BJS", "CS", "dCDH", "ETWFE", "Gardner", "SA", "Stepwise", "TWFE"), order = TRUE)) %>% 
+         method = factor(method, levels = c("BJS", "BJS Loo", "CS", "dCDH", "ETWFE", "Gardner", "SA", "Stepwise", "TWFE"), order = TRUE)) %>% 
   arrange(iteration)
 
 
@@ -863,7 +882,8 @@ summary_effect_prop <- results %>%
             share_sign = mean(Significant),
             rmse = my_rmse(estimate, true_att)) %>%
   mutate(prop_treated = factor(prop_treated, levels = c(0.1, 0.2, 0.4, 0.6), labels = c("10%", "20%", "40%", "60%"), order = TRUE),
-         ate = factor(pct_att_mean, levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
+         ate = factor(pct_att_mean, levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE)) %>% 
+  filter(ate != "15%")
 
 ## lowest power , woah?
 min(summary_effect_prop$share_sign, na.rm = T)
@@ -877,7 +897,8 @@ summary_by_sign_effect_prop <- results %>%
   summarize(exageration_ratio = mean(exageration_ratio, na.rm = TRUE),
             Pct_wrong_sign = mean(wrong_sign)*100)  %>%
   mutate(prop_treated = factor(prop_treated, levels = c(0.1, 0.2, 0.4, 0.6), labels = c("10%", "20%", "40%", "60%"), order = TRUE),
-         ate = factor(pct_att_mean, levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
+         ate = factor(pct_att_mean, levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE)) %>% 
+  filter(ate != "15%")
 
 ### max wrong sign
 max(summary_by_sign_effect_prop$Pct_wrong_sign)
@@ -1225,12 +1246,13 @@ rm(imp1, imp2, imp3, imp4, imp5, imp6, imp7, imp8)
 rm(cdh1, cdh2, cdh3, cdh4, cdh5, cdh6, cdh7, cdh8)
 rm(step1, step2, step3, step4, step5, step6, step7, step8)
 
-results <- bind_rows(results, cdh, stepwise) %>% ### no imp stata, no imp loo for now
+results <- bind_rows(results, cdh, stepwise, imp_loo) %>% ### no imp stata, no imp loo for now
   mutate(method = case_when(method == "CdH" ~ "dCDH",
                             method == "CSA" ~ "CS",
                             method == "Mundlak" ~ "ETWFE",
+                            method == "BJS Stata LOO" ~ "BJS Loo",
                             TRUE ~ method),
-         method = factor(method, levels = c("BJS", "CS", "dCDH", "ETWFE", "Gardner", "SA", "Stepwise", "TWFE"), order = TRUE)) %>% 
+         method = factor(method, levels = c("BJS", "BJS Loo", "CS", "dCDH", "ETWFE", "Gardner", "SA", "Stepwise", "TWFE"), order = TRUE)) %>% 
   arrange(iteration)
 
 
@@ -1265,8 +1287,9 @@ summary_effect_prop <- results %>%
             share_sign = mean(Significant),
             rmse = my_rmse(estimate, true_att)) %>%
   mutate(prop_treated = factor(prop_treated, levels = c(0.1, 0.2, 0.4, 0.6), labels = c("10%", "20%", "40%", "60%"), order = TRUE),
-         ate = factor(pct_att_mean, levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
-
+         ate = factor(pct_att_mean, levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE)) %>% 
+  filter(ate != "15%")
+  
 ## lowest power , woah?
 min(summary_effect_prop$share_sign, na.rm = T)
 
@@ -1279,7 +1302,8 @@ summary_by_sign_effect_prop <- results %>%
   summarize(exageration_ratio = mean(exageration_ratio, na.rm = TRUE),
             Pct_wrong_sign = mean(wrong_sign)*100)  %>%
   mutate(prop_treated = factor(prop_treated, levels = c(0.1, 0.2, 0.4, 0.6), labels = c("10%", "20%", "40%", "60%"), order = TRUE),
-         ate = factor(pct_att_mean, levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
+         ate = factor(pct_att_mean, levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE)) %>% 
+  filter(ate != "15%")
 
 ### max wrong sign
 max(summary_by_sign_effect_prop$Pct_wrong_sign)
@@ -1567,8 +1591,9 @@ summary_effect_units <- results %>%
             mean_error_pct = mean(error_pct),
             share_sign = mean(Significant),
             rmse = my_rmse(estimate, true_att)) %>%
-  mutate(units = factor(units, levels = c(100, 250, 1000, 2500), labels = c("100", "250", "1000", "2500"), order = TRUE),
-         ate = factor(round(pct_att_mean, 3), levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
+  mutate(units = factor(units, levels = c(100, 250, 1000, 2000), labels = c("100", "250", "1000", "2000"), order = TRUE),
+         ate = factor(round(pct_att_mean, 3), levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))%>% 
+  filter(ate != "15%")
 
 
 
@@ -1580,31 +1605,32 @@ summary_by_sign_effect_units <- results %>%
   group_by(method, pct_att_mean, units) %>%
   summarize(exageration_ratio = mean(exageration_ratio, na.rm = TRUE),
             Pct_wrong_sign = mean(wrong_sign)*100)  %>%
-  mutate(units = factor(units, levels = c(100, 250, 1000, 2500), labels = c("100", "250", "1000", "2500"), order = TRUE),
-         ate = factor(round(pct_att_mean, 3), levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
+  mutate(units = factor(units, levels = c(100, 250, 1000, 2000), labels = c("100", "250", "1000", "2000"), order = TRUE),
+         ate = factor(round(pct_att_mean, 3), levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE)) %>% 
+  filter(ate != "15%")
 
 
 
 ##### coverage
-pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = coverage, x = units, color = method, group = method))
+pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "2.5%", ], aes(y = coverage, x = units, color = method, group = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + geom_hline(yintercept = 0.95, color = "red", linewidth = .75, alpha = 0.85)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATT = 5% of Mean", y="Coverage", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "ATT = 2.5% of Mean", y="Coverage", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2))
 
-pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = coverage, x = units , color = method, group = method))
+pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = coverage, x = units , color = method, group = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + geom_hline(yintercept = 0.95, color = "red", linewidth = .75, alpha = 0.75)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATT = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1) #+ coord_flip()
+pm <- pm + labs(subtitle = "ATT = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
-pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "15%", ], aes(y = coverage, x = units, color = method, group = method))
+pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = coverage, x = units, color = method, group = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + geom_hline(yintercept = 0.95, color = "red", linewidth = .75, alpha = 0.75)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATT = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
+pr <- pr + labs(subtitle = "ATT = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 p <- (pl + pm + pr)/guide_area() + plot_layout(guides = 'collect') +
@@ -1617,23 +1643,23 @@ ggsave(here("..", "output", "coverage_units_firms_logrev.pdf"), plot = p, device
 
 
 ##### CI length
-pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = CI_size, x = units, color = method, group = method))
+pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "2.5%", ], aes(y = CI_size, x = units, color = method, group = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATT = 5% of Mean", y="CI Length", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 0.9)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "ATT = 2.5% of Mean", y="CI Length", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2))
 
 
-pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = CI_size, x = units , color = method, group = method))
+pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = CI_size, x = units , color = method, group = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATT = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 0.9) #+ coord_flip()
+pm <- pm + labs(subtitle = "ATT = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
-pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "15%", ], aes(y = CI_size, x = units, color = method, group = method))
+pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = CI_size, x = units, color = method, group = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATT = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 0.9) #+ coord_flip()
+pr <- pr + labs(subtitle = "ATT = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 
@@ -1649,27 +1675,27 @@ ggsave(here("..", "output", "CIlength_units_firms_logrev.pdf"), plot = p, device
 
 
 ##### power
-pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%" , ], aes(y = share_sign, x = units, color = method))
+pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "2.5%" , ], aes(y = share_sign, x = units, color = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + geom_hline(yintercept = 0.8, color = "red", size = .75, alpha = 0.85)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATT = 5% of Mean", y="Power", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "ATT = 2.5% of Mean", y="Power", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2))
 
 
-pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = share_sign, x = units , color = method))
+pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = share_sign, x = units , color = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + geom_hline(yintercept = 0.8, color = "red", size = .75, alpha = 0.75)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATT = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1) #+ coord_flip()
+pm <- pm + labs(subtitle = "ATT = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 
-pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "15%", ], aes(y = share_sign, x = units, color = method))
+pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = share_sign, x = units, color = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + geom_hline(yintercept = 0.8, color = "red", size = .75, alpha = 0.75)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATT = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
+pr <- pr + labs(subtitle = "ATT = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 
@@ -1684,24 +1710,24 @@ ggsave(here("..", "output", "power_units_firms_logrev.pdf"), plot = p, device = 
 
 
 ##### rmse
-pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%" , ], aes(y = rmse, x = units, color = method))
+pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "2.5%" , ], aes(y = rmse, x = units, color = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATT = 5% of Mean", y="RMSE", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(0, 0.2)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "ATT = 2.5% of Mean", y="RMSE", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(0, 0.2)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2))
 
 
-pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = rmse, x = units , color = method))
+pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = rmse, x = units , color = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATT = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(0, 0.2) #+ coord_flip()
+pm <- pm + labs(subtitle = "ATT = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(0, 0.2) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 
-pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "15%", ], aes(y = rmse, x = units, color = method))
+pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = rmse, x = units, color = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATT = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(0, 0.2)#+ ylim(-1, 1) #+ coord_flip()
+pr <- pr + labs(subtitle = "ATT = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(0, 0.2)#+ ylim(-1, 1) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 
@@ -1715,25 +1741,25 @@ ggsave(here("..", "output", "rmse_units_firms_logrev.pdf"), plot = p, device = c
 
 
 ##### bias
-pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%" , ], aes(y = mean_error, x = units, color = method))
+pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "2.5%" , ], aes(y = mean_error, x = units, color = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + geom_hline(yintercept = 0, color = "red", size = .75, alpha = 0.75)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATE = 5% of Mean", y="Average Error", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(-0.02, 0.02)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "ATE = 2.5% of Mean", y="Average Error", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(-0.02, 0.02)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2))
 
-pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = mean_error, x = units , color = method))
+pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = mean_error, x = units , color = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + geom_hline(yintercept = 0, color = "red", size = .75, alpha = 0.75)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATE = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(-0.02, 0.02) #+ coord_flip()
+pm <- pm + labs(subtitle = "ATE = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(-0.02, 0.02) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
-pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "15%", ], aes(y = mean_error, x = units, color = method))
+pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = mean_error, x = units, color = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + geom_hline(yintercept = 0, color = "red", size = .75, alpha = 0.75)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATE = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(-0.02, 0.02)#+ ylim(-1, 1) #+ coord_flip()
+pr <- pr + labs(subtitle = "ATE = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(-0.02, 0.02)#+ ylim(-1, 1) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 p <- (pl + pm + pr)/guide_area() + plot_layout(guides = 'collect') +
@@ -1746,27 +1772,27 @@ ggsave(here("..", "output", "bias_units_firms_logrev.pdf"), plot = p, device = c
 
 
 ##### exaggeration
-pl <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "5%", ], aes(y = exageration_ratio, x = units, color = method))
+pl <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "2.5%", ], aes(y = exageration_ratio, x = units, color = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + geom_hline(yintercept = 1, color = "red", size = .75, alpha = 0.5)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATE = 5% of Mean", y="Exaggeration \nRatio", x = "") + scale_color_manual(name="Method", values = color_nocdh)
+pl <- pl + labs(subtitle = "ATE = 2.5% of Mean", y="Exaggeration \nRatio", x = "") + scale_color_manual(name="Method", values = color_nocdh)
 pl <- pl + guides(col = guide_legend(nrow = 2)) + scale_y_continuous(limits = c(0.9, 3.5))
 
 
-pm <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "10%", ], aes(y = exageration_ratio, x = units, color = method))
+pm <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "5%", ], aes(y = exageration_ratio, x = units, color = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + geom_hline(yintercept = 1, color = "red", size = .75, alpha = 0.5)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATE = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh)
+pm <- pm + labs(subtitle = "ATE = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh)
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + scale_y_continuous(limits = c(0.9, 3.5))
 
 
-pr <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "15%", ], aes(y = exageration_ratio, x = units, color = method))
+pr <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "10%", ], aes(y = exageration_ratio, x = units, color = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + geom_hline(yintercept = 1, color = "red", size = .75, alpha = 0.5)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATE = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh)
+pr <- pr + labs(subtitle = "ATE = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh)
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + scale_y_continuous(limits = c(0.9, 3.5))
 
 
@@ -1781,24 +1807,24 @@ ggsave(here("..", "output", "exaggeration_units_logrev_firms.pdf"), plot = p, de
 
 
 ##### pct wrong sign  
-pl <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "5%", ], aes(y = Pct_wrong_sign, x = units, color = method))
+pl <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "2.5%", ], aes(y = Pct_wrong_sign, x = units, color = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATE = 5% of Mean", y="% Wrong \nSign", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 5)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "ATE = 2.5% of Mean", y="% Wrong \nSign", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 5)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2)) 
 
 
-pm <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "10%",  ], aes(y = Pct_wrong_sign, x = units, color = method))
+pm <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "5%",  ], aes(y = Pct_wrong_sign, x = units, color = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATE = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 5) #+ coord_flip()
+pm <- pm + labs(subtitle = "ATE = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 5) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())  
 
 
-pr <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "15%",  ], aes(y = Pct_wrong_sign, x = units, color = method))
+pr <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "10%",  ], aes(y = Pct_wrong_sign, x = units, color = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATE = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 5)#+ ylim(-1, 1) #+ coord_flip()
+pr <- pr + labs(subtitle = "ATE = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 5)#+ ylim(-1, 1) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) 
 
 
@@ -1860,8 +1886,9 @@ summary_effect_units <- results %>%
             mean_error_pct = mean(error_pct),
             share_sign = mean(Significant),
             rmse = my_rmse(estimate, true_att)) %>%
-  mutate(units = factor(units, levels = c(100, 250, 1000, 2500), labels = c("100", "250", "1000", "2500"), order = TRUE),
-         ate = factor(round(pct_att_mean, 3), levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
+  mutate(units = factor(units, levels = c(100, 250, 1000, 2000), labels = c("100", "250", "1000", "2000"), order = TRUE),
+         ate = factor(round(pct_att_mean, 3), levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))%>% 
+  filter(ate != "15%")
 
 
 
@@ -1873,31 +1900,32 @@ summary_by_sign_effect_units <- results %>%
   group_by(method, pct_att_mean, units) %>%
   summarize(exageration_ratio = mean(exageration_ratio, na.rm = TRUE),
             Pct_wrong_sign = mean(wrong_sign)*100)  %>%
-  mutate(units = factor(units, levels = c(100, 250, 1000, 2500), labels = c("100", "250", "1000", "2500"), order = TRUE),
-         ate = factor(round(pct_att_mean, 3), levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
+  mutate(units = factor(units, levels = c(100, 250, 1000, 2000), labels = c("100", "250", "1000", "2000"), order = TRUE),
+         ate = factor(round(pct_att_mean, 3), levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE)) %>% 
+  filter(ate != "15%")
 
 
 
 ##### coverage
-pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = coverage, x = units, color = method, group = method))
+pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "2.5%", ], aes(y = coverage, x = units, color = method, group = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + geom_hline(yintercept = 0.95, color = "red", linewidth = .75, alpha = 0.85)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATT = 5% of Mean", y="Coverage", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "ATT = 2.5% of Mean", y="Coverage", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2))
 
-pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = coverage, x = units , color = method, group = method))
+pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = coverage, x = units , color = method, group = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + geom_hline(yintercept = 0.95, color = "red", linewidth = .75, alpha = 0.75)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATT = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1) #+ coord_flip()
+pm <- pm + labs(subtitle = "ATT = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
-pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "15%", ], aes(y = coverage, x = units, color = method, group = method))
+pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = coverage, x = units, color = method, group = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + geom_hline(yintercept = 0.95, color = "red", linewidth = .75, alpha = 0.75)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATT = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
+pr <- pr + labs(subtitle = "ATT = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 p <- (pl + pm + pr)/guide_area() + plot_layout(guides = 'collect') +
@@ -1910,23 +1938,23 @@ ggsave(here("..", "output", "coverage_units_roa.pdf"), plot = p, device = cairo_
 
 
 ##### CI length
-pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = CI_size, x = units, color = method, group = method))
+pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "2.5%", ], aes(y = CI_size, x = units, color = method, group = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATT = 5% of Mean", y="CI Length", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 0.5)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "ATT = 2.5% of Mean", y="CI Length", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 0.5)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2))
 
 
-pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = CI_size, x = units , color = method, group = method))
+pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = CI_size, x = units , color = method, group = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATT = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 0.5) #+ coord_flip()
+pm <- pm + labs(subtitle = "ATT = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 0.5) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
-pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "15%", ], aes(y = CI_size, x = units, color = method, group = method))
+pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = CI_size, x = units, color = method, group = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATT = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 0.5) #+ coord_flip()
+pr <- pr + labs(subtitle = "ATT = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 0.5) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 
@@ -1942,27 +1970,27 @@ ggsave(here("..", "output", "CIlength_units_roa.pdf"), plot = p, device = cairo_
 
 
 ##### power
-pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%" , ], aes(y = share_sign, x = units, color = method))
+pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "2.5%" , ], aes(y = share_sign, x = units, color = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + geom_hline(yintercept = 0.8, color = "red", size = .75, alpha = 0.85)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATT = 5% of Mean", y="Power", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "ATT = 2.5% of Mean", y="Power", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2))
 
 
-pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = share_sign, x = units , color = method))
+pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = share_sign, x = units , color = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + geom_hline(yintercept = 0.8, color = "red", size = .75, alpha = 0.75)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATT = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1) #+ coord_flip()
+pm <- pm + labs(subtitle = "ATT = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 
-pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "15%", ], aes(y = share_sign, x = units, color = method))
+pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = share_sign, x = units, color = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + geom_hline(yintercept = 0.8, color = "red", size = .75, alpha = 0.75)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATT = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
+pr <- pr + labs(subtitle = "ATT = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1)#+ ylim(-1, 1) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 
@@ -1977,24 +2005,24 @@ ggsave(here("..", "output", "power_units_firms_roa.pdf"), plot = p, device = cai
 
 
 ##### rmse
-pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%" , ], aes(y = rmse, x = units, color = method))
+pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "2.5%" , ], aes(y = rmse, x = units, color = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATT = 5% of Mean", y="RMSE", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(0, 0.2)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "ATT = 2.5% of Mean", y="RMSE", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(0, 0.2)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2))
 
 
-pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = rmse, x = units , color = method))
+pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = rmse, x = units , color = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATT = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(0, 0.2) #+ coord_flip()
+pm <- pm + labs(subtitle = "ATT = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(0, 0.2) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 
-pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "15%", ], aes(y = rmse, x = units, color = method))
+pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = rmse, x = units, color = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATT = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(0, 0.2)#+ ylim(-1, 1) #+ coord_flip()
+pr <- pr + labs(subtitle = "ATT = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(0, 0.2)#+ ylim(-1, 1) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 
@@ -2008,25 +2036,25 @@ ggsave(here("..", "output", "rmse_units_firms_roa.pdf"), plot = p, device = cair
 
 
 ##### bias
-pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%" , ], aes(y = mean_error, x = units, color = method))
+pl <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "2.5%" , ], aes(y = mean_error, x = units, color = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + geom_hline(yintercept = 0, color = "red", size = .75, alpha = 0.75)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATE = 5% of Mean", y="Average Error", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(-0.01, 0.1)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "ATE = 2.5% of Mean", y="Average Error", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(-0.01, 0.1)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2))
 
-pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = mean_error, x = units , color = method))
+pm <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "5%", ], aes(y = mean_error, x = units , color = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + geom_hline(yintercept = 0, color = "red", size = .75, alpha = 0.75)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATE = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(-0.01, 0.1) #+ coord_flip()
+pm <- pm + labs(subtitle = "ATE = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(-0.01, 0.1) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
-pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "15%", ], aes(y = mean_error, x = units, color = method))
+pr <-  ggplot(data = summary_effect_units[summary_effect_units$ate == "10%", ], aes(y = mean_error, x = units, color = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + geom_hline(yintercept = 0, color = "red", size = .75, alpha = 0.75)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATE = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(-0.01, 0.1)#+ ylim(-1, 1) #+ coord_flip()
+pr <- pr + labs(subtitle = "ATE = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh)+ ylim(-0.01, 0.1)#+ ylim(-1, 1) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
 
 p <- (pl + pm + pr)/guide_area() + plot_layout(guides = 'collect') +
@@ -2039,27 +2067,27 @@ ggsave(here("..", "output", "bias_units_firms_roa.pdf"), plot = p, device = cair
 
 
 ##### exaggeration
-pl <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "5%", ], aes(y = exageration_ratio, x = units, color = method))
+pl <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "2.5%", ], aes(y = exageration_ratio, x = units, color = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + geom_hline(yintercept = 1, color = "red", size = .75, alpha = 0.5)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATE = 5% of Mean", y="Exaggeration \nRatio", x = "") + scale_color_manual(name="Method", values = color_nocdh)
+pl <- pl + labs(subtitle = "ATE = 2.5% of Mean", y="Exaggeration \nRatio", x = "") + scale_color_manual(name="Method", values = color_nocdh)
 pl <- pl + guides(col = guide_legend(nrow = 2)) + scale_y_continuous(limits = c(0.9, 10))
 
 
-pm <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "10%", ], aes(y = exageration_ratio, x = units, color = method))
+pm <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "5%", ], aes(y = exageration_ratio, x = units, color = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + geom_hline(yintercept = 1, color = "red", size = .75, alpha = 0.5)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATE = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh)
+pm <- pm + labs(subtitle = "ATE = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh)
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + scale_y_continuous( limits = c(0.9, 10))
 
 
-pr <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "15%", ], aes(y = exageration_ratio, x = units, color = method))
+pr <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "10%", ], aes(y = exageration_ratio, x = units, color = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + geom_hline(yintercept = 1, color = "red", size = .75, alpha = 0.5)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATE = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh)
+pr <- pr + labs(subtitle = "ATE = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh)
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + scale_y_continuous(limits = c(0.9, 10))
 
 
@@ -2074,24 +2102,24 @@ ggsave(here("..", "output", "exaggeration_units_roa_firms.pdf"), plot = p, devic
 
 
 ##### pct wrong sign  
-pl <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "5%", ], aes(y = Pct_wrong_sign, x = units, color = method))
+pl <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "2.5%", ], aes(y = Pct_wrong_sign, x = units, color = method))
 pl <- pl + geom_point(position = position_dodge2(width = .65), size = 6)
 pl <- pl + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pl <- pl + labs(subtitle = "ATE = 5% of Mean", y="% Wrong \nSign", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 18)#+ ylim(-1, 1) #+ coord_flip()
+pl <- pl + labs(subtitle = "ATE = 2.5% of Mean", y="% Wrong \nSign", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 18)#+ ylim(-1, 1) #+ coord_flip()
 pl <- pl + guides(col = guide_legend(nrow = 2)) 
 
 
-pm <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "10%",  ], aes(y = Pct_wrong_sign, x = units, color = method))
+pm <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "5%",  ], aes(y = Pct_wrong_sign, x = units, color = method))
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
-pm <- pm + labs(subtitle = "ATE = 10% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 18) #+ coord_flip()
+pm <- pm + labs(subtitle = "ATE = 5% of Mean", y="", x = "Number of Firms") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 18) #+ coord_flip()
 pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())  
 
 
-pr <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "15%",  ], aes(y = Pct_wrong_sign, x = units, color = method))
+pr <-  ggplot(data = summary_by_sign_effect_units[summary_by_sign_effect_units$ate == "10%",  ], aes(y = Pct_wrong_sign, x = units, color = method))
 pr <- pr + geom_point(position = position_dodge2(width = .65), size = 6)
 pr <- pr + theme_mfx() + theme(legend.position= 'none',legend.key=element_rect(fill='white'))
-pr <- pr + labs(subtitle = "ATE = 15% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 18)#+ ylim(-1, 1) #+ coord_flip()
+pr <- pr + labs(subtitle = "ATE = 10% of Mean", y="", x = "") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 18)#+ ylim(-1, 1) #+ coord_flip()
 pr <- pr + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) 
 
 
@@ -2158,7 +2186,9 @@ summary_effect_prop <- results %>%
             rmse = my_rmse(estimate, true_att),
             mean_sd_ratio = mean(mean_sd_ratio)) %>%
   mutate(DV = factor(DV, levels = c("log_rev", "roa"), labels = c("Revenue (ln)", "ROA"), order = TRUE),
-         ate = factor(pct_att_mean, levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
+         ate = factor(pct_att_mean, levels = c(0.025, 0.050, 0.100, 0.150), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE)) %>% 
+  filter(ate != "15%")
+
 
 min(summary_effect_prop$share_sign, na.rm = T)
 
@@ -2171,7 +2201,8 @@ summary_by_sign_effect_prop <- results %>%
   summarize(exageration_ratio = mean(exageration_ratio, na.rm = TRUE),
             Pct_wrong_sign = mean(wrong_sign)*100)  %>%
   mutate(DV = factor(DV, levels = c("log_rev", "roa"), labels = c("Revenue (ln)", "ROA"), order = TRUE),
-         ate = factor(pct_att_mean, levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE))
+         ate = factor(pct_att_mean, levels = c(0.025, 0.05, 0.10, 0.15), labels = c("2.5%", "5%", "10%", "15%"), order = TRUE)) %>% 
+  filter(ate != "15%")
 
 
 ##### coverage
@@ -2180,7 +2211,7 @@ pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + geom_hline(yintercept = 0.95, color = "red", linewidth = .75, alpha = 0.75)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
 pm <- pm + labs(y="Coverage", x = "True ATT as % Mean") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0.2, 1) #+ coord_flip()
-pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank(), strip.background = element_blank(), strip.text.x = element_text(size = 24))
+pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), strip.background = element_blank(), strip.text.x = element_text(size = 24))
 pm
 ggsave(here("..", "output", "coverage_att_dv.pdf"), plot = pm, device = cairo_pdf,  height = 10, width = 10* 1.618)
 
@@ -2190,7 +2221,7 @@ pm <-  ggplot(data = summary_effect_prop, aes(y = CI_size, x = ate , color = met
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
 pm <- pm + labs(y="CI Length", x = "True ATT as % Mean") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0.2, 0.75) #+ coord_flip()
-pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank(), strip.background = element_blank(), strip.text.x = element_text(size = 24))
+pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), strip.background = element_blank(), strip.text.x = element_text(size = 24))
 pm
 ggsave(here("..", "output", "CIlength_att_dv.pdf"), plot = pm, device = cairo_pdf,  height = 10, width = 10* 1.618)
 
@@ -2200,7 +2231,7 @@ pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + geom_hline(yintercept = 0.8, color = "red", linewidth = .75, alpha = 0.85)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
 pm <- pm + labs(y="Power", x = "True ATT as % Mean") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 1) #+ coord_flip()
-pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank(), strip.background = element_blank(), strip.text.x = element_text(size = 24))
+pm <- pm + guides(col = guide_legend(nrow = 2)) +  theme(axis.ticks.y = element_blank(),  strip.background = element_blank(), strip.text.x = element_text(size = 24))
 pm
 ggsave(here("..", "output", "power_att_dv.pdf"), plot = pm, device = cairo_pdf,  height = 10, width = 10* 1.618)
 
@@ -2237,7 +2268,7 @@ ggsave(here("..", "output", "exaggeration_att_dv.pdf"), plot = pm, device = cair
 
 
 ##### pct wrong sign  
-pm <-  ggplot(data = summary_by_sign_effect_prop, aes(y = exageration_ratio, x = ate , color = method, group = method)) + facet_wrap(~DV, scales = "free_y")
+pm <-  ggplot(data = summary_by_sign_effect_prop, aes(y = Pct_wrong_sign, x = ate , color = method, group = method)) + facet_wrap(~DV, scales = "free_y")
 pm <- pm + geom_point(position = position_dodge2(width = .65), size = 6)
 pm <- pm + theme_mfx() + theme(legend.position= 'bottom',legend.key=element_rect(fill='white'))
 pm <- pm + labs(y="% Wrong \nSign", x = "True ATT as % Mean") + scale_color_manual(name="Method", values = color_nocdh) + ylim(0, 9) #+ coord_flip()

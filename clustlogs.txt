@@ -18608,3 +18608,1885 @@ Execution halted
 Error in unserialize(node$con) : error reading from connection
 Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
 Execution halted
+starting worker pid=91516 on localhost:11020 at 15:54:36.528
+starting worker pid=91544 on localhost:11020 at 15:54:39.184
+starting worker pid=91572 on localhost:11020 at 15:54:41.441
+starting worker pid=91600 on localhost:11020 at 15:54:44.269
+starting worker pid=91628 on localhost:11020 at 15:54:47.106
+starting worker pid=91656 on localhost:11020 at 15:54:50.103
+starting worker pid=91684 on localhost:11020 at 15:54:52.796
+starting worker pid=91712 on localhost:11020 at 15:54:55.540
+starting worker pid=91740 on localhost:11020 at 15:54:58.381
+starting worker pid=91768 on localhost:11020 at 15:55:01.320
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Loading required package: fixest
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Loading required package: fixest
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Loading required package: fixest
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+Loading required package: fixest
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+
+Attaching package: ‘didimputation’
+
+Loading required package: fixest
+Loading required package: foreach
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Loading required package: fixest
+Loading required package: fixest
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Loading required package: fixest
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+Loading required package: data.table
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+Loading required package: fixest
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+Loading required package: rngtools
+Loading required package: fixest
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+starting worker pid=97229 on localhost:11020 at 09:21:36.080
+starting worker pid=97257 on localhost:11020 at 09:21:38.991
+starting worker pid=97285 on localhost:11020 at 09:21:42.263
+starting worker pid=97313 on localhost:11020 at 09:21:44.948
+starting worker pid=97341 on localhost:11020 at 09:21:48.267
+starting worker pid=97369 on localhost:11020 at 09:21:51.470
+starting worker pid=97397 on localhost:11020 at 09:21:54.848
+starting worker pid=97425 on localhost:11020 at 09:21:57.829
+starting worker pid=97453 on localhost:11020 at 09:22:00.327
+starting worker pid=97482 on localhost:11020 at 09:22:03.338
+starting worker pid=97650 on localhost:11596 at 09:24:03.148
+starting worker pid=97678 on localhost:11596 at 09:24:06.239
+starting worker pid=97706 on localhost:11596 at 09:24:08.708
+starting worker pid=97738 on localhost:11596 at 09:24:11.852
+starting worker pid=97772 on localhost:11596 at 09:24:14.916
+starting worker pid=97800 on localhost:11596 at 09:24:18.000
+starting worker pid=97828 on localhost:11596 at 09:24:21.021
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Loading required package: fixest
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Loading required package: fixest
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Loading required package: fixest
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+Loading required package: fixest
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+Loading required package: fixest
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Loading required package: fixest
+Loading required package: fixest
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+starting worker pid=99838 on localhost:11596 at 10:20:14.012
+starting worker pid=99866 on localhost:11596 at 10:20:16.210
+starting worker pid=99894 on localhost:11596 at 10:20:18.693
+starting worker pid=99922 on localhost:11596 at 10:20:21.116
+starting worker pid=99950 on localhost:11596 at 10:20:23.519
+starting worker pid=99978 on localhost:11596 at 10:20:26.234
+starting worker pid=107 on localhost:11596 at 10:20:28.991
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Loading required package: fixest
+Loading required package: fixest
+Loading required package: fixest
+Loading required package: fixest
+Loading required package: fixest
+Loading required package: fixest
+Loading required package: fixest
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+did2s (v1.0.2). For more information on the methodology, visit <https://www.kylebutts.github.io/did2s>
+
+To cite did2s in publications use:
+
+  Butts, Kyle (2021).  did2s: Two-Stage Difference-in-Differences
+  Following Gardner (2021). R package version 1.0.2.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {did2s: Two-Stage Difference-in-Differences Following Gardner (2021)},
+    author = {Kyle Butts},
+    year = {2021},
+    url = {https://github.com/kylebutts/did2s/},
+  }
+
+
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+
+Attaching package: ‘data.table’
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+
+Attaching package: ‘data.table’
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+
+Attaching package: ‘data.table’
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:lubridate’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+
+Attaching package: ‘didimputation’
+
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+
+Attaching package: ‘didimputation’
+
+
+Attaching package: ‘didimputation’
+
+
+Attaching package: ‘didimputation’
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+The following objects are masked from ‘package:did2s’:
+
+    df_het, df_hom
+
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+here() starts at /Users/fho.egb/Documents/GitHub/DDPower
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+Some features are not enabled in this build of Arrow. Run `arrow_info()` for more information.
+The repository you retrieved Arrow from did not include all of Arrow's features.
+You can install a fully-featured version by running:
+`install.packages('arrow', repos = 'https://apache.r-universe.dev')`.
+
+Attaching package: ‘arrow’
+
+
+Attaching package: ‘arrow’
+
+
+Attaching package: ‘arrow’
+
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+
+Attaching package: ‘arrow’
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+Loading required package: foreach
+Loading required package: foreach
+Loading required package: foreach
+Loading required package: foreach
+
+Attaching package: ‘arrow’
+
+Loading required package: foreach
+The following object is masked from ‘package:lubridate’:
+
+    duration
+
+The following object is masked from ‘package:utils’:
+
+    timestamp
+
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+
+Attaching package: ‘foreach’
+
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+Loading required package: rngtools
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+Loading required package: rngtools
+Loading required package: rngtools
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: rngtools

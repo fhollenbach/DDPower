@@ -67,10 +67,10 @@ for_cdh <- results %>%
   group_by(iteration) %>%
   summarize_all(unique)
 #
-cdh1 <- read_csv(here("..", "StataSim_state", "sim_CdH_external_stata1.csv"))[-1,]
-cdh2 <- read_csv(here("..", "StataSim_state", "sim_CdH_external_stata2.csv"))[-1,]
-cdh3 <- read_csv(here("..", "StataSim_state", "sim_CdH_external_stata3.csv"))[-1,]
-cdh4 <- read_csv(here("..", "StataSim_state", "sim_CdH_external_stata4.csv"))[-1,]
+cdh1 <- read_csv(here("..", "StataSim_state", "sim_CdH_stata1.csv"))[-1,]
+cdh2 <- read_csv(here("..", "StataSim_state", "sim_CdH_stata2.csv"))[-1,]
+cdh3 <- read_csv(here("..", "StataSim_state", "sim_CdH_stata3.csv"))[-1,]
+cdh4 <- read_csv(here("..", "StataSim_state", "sim_CdH_stata4.csv"))[-1,]
 
 cdh <- bind_rows(cdh1, cdh2, cdh3, cdh4) %>%
   mutate(method = "CdH") %>%

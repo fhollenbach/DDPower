@@ -18,11 +18,11 @@ local i = 40001
 while `i' < 44001 {
 	clear
 	import delimited "Data_firms_`i'.csv"
-	sort gvkey time
-	by gvkey: egen group = min(time) if post_period == 1
-	capture  did_imputation y gvkey time group
+	sort firm_id time
+	by firm_id: egen group = min(time) if post_period == 1
+	capture  did_imputation y_log firm_id time group
 	matrix results_imp = ( results_imp \ `i' , 0, -100,  e(b) , e(V) )
-	capture  did_imputation y gvkey time group,  leaveout
+	capture  did_imputation y_log firm_id time group,  leaveout
 	matrix results_imp = ( results_imp \ `i', 1, -100,  e(b) , e(V) )
 	display `i'
 	local i = `i'+1

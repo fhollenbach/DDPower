@@ -18,9 +18,9 @@ local i = 44001
 while `i' < 48001 {
 	clear
 	import delimited "Data_firms_`i'.csv"
-	sort gvkey time
-	by gvkey: egen group = min(time) if post_period == 1
-	capture did_stepwise y gvkey time group, agg cluster(gvkey) minn(0)
+	sort firm_id time
+	by firm_id: egen group = min(time) if post_period == 1
+	capture did_stepwise y_log firm_id time group, agg cluster(firm_id) minn(0)
 	matrix results_step = ( results_step \ `i' , -100,  e(b)[1,"tau_average"] , e(V)["tau_average", "tau_average"] )
 	display `i'
 	local i = `i'+1

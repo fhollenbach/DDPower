@@ -1,5 +1,11 @@
-library(RPostgres)
-library(here)
+
+library(groundhog)
+
+pkgs <- c("here", "RPostgres", "DBI", "tidyverse")
+groundhog.day <- "2025-09-01"
+groundhog.library(pkgs, groundhog.day)
+
+
 # source my passwords
 
 source(here("..", "pw-r.R"))
@@ -12,90 +18,68 @@ wrds_con <- dbConnect(Postgres(),
                       password = wrds,
                       dbname = 'wrds',
                       sslmode = 'require')
-
 # download compustat data
-comp <- tbl(wrds_con, sql("SELECT gvkey, fyear,  at, revt, ni, datafmt, popsrc, consol,indfmt, fic, sich FROM comp.funda")) %>%
+comp <- tbl(wrds_con, sql("SELECT gvkey, fyear, revt, datafmt, popsrc, consol,indfmt, fic, sich FROM comp.funda")) %>%
   # filter the data - between 1979 and 2015, non-missing assets, and in the US
   filter(indfmt == 'INDL' & datafmt == 'STD' & popsrc == 'D' & consol == 'C' & !is.na(fyear) & 
-           fyear %>% between(1990, 2020) &  fic == "USA" & at !=0) %>% 
-  # make ROA variable
-  group_by(gvkey) %>% 
-  mutate(gvkey = as.numeric(gvkey),
-         lag_at = lag(at, 1, order = fyear),
-         #roa = ni/lag_at,
-         roa = revt/lag_at) %>%  # maximum data gap by firm
-  ungroup() %>% 
-    # drop missing ROA
-  filter(is.na(roa) == FALSE) %>% 
+           fyear %>% between(2001, 2020) &  fic == "USA") %>% 
+  # drop if missing at or revt
+  filter(is.na(revt) == FALSE) %>% 
+  mutate(gvkey = as.numeric(gvkey)) %>% 
   group_by(gvkey) %>% 
   mutate(min_year = min(fyear),
          year_dif = fyear - lag(fyear, 1, order = fyear), ### check whether time series consec
-         time = fyear - min_year, ### time counter
+         time = (fyear - min_year) + 1, ### time counter
          max_time = max(time), ### time series length by firm
-         first_gap = min(time[year_dif > 1]),
-         last_gap = max(time[year_dif > 1]),
-         length_to_gap = first_gap - 1,
-         length_after_gap = max_time - last_gap) %>% 
+         max_gap = max(year_dif, na.rm = TRUE),
+         max_year = max(fyear)) %>% 
   collect() %>% 
   arrange(gvkey, fyear) %>% 
-  filter(max_time >= 20 & (length_to_gap >= 20 | length_after_gap >= 20 | is.na(first_gap))) %>% ### everything less than 20 years can already go
-  ##### remove data afte/before gap that has shorter time series
-  group_by(gvkey) %>%
-  mutate(to_keep = if_else(length_to_gap > length_after_gap, "first", "last")) %>%
-  ungroup() %>%
-  filter((to_keep == "first" & time < last_gap) | is.na(to_keep) | (to_keep == "last" & time > first_gap)) %>%
-  #### recreate time variables
-  group_by(gvkey) %>% 
-  mutate(min_year = min(fyear), ## first year now in data by firm, t = 1
-         time = fyear - min_year  + 1, ### time counter starts at 1 for each firm
-         max_time = max(time), ### last year for each firm
-         time_dif = time - lag(time, 1, order = time), ## check for gaps
-         time_dif = if_else(is.na(time_dif), 1, time_dif), ### first period is always 1, but not lag available
-         max_gap = max(time_dif)) %>%
-  ungroup() %>%
-  filter(max_gap == 1 & max_time >= 20) %>%
-  mutate(start_time = max_time - 19)
+  filter(min_year == 2001 & max_gap == 1 & fyear <= 2020 & max_year >=2020) %>% 
+  select(-c(datafmt, popsrc, consol, indfmt, fic, min_year, year_dif, max_time, max_gap, max_year)) ### don't need these anymore
+  
 
 
 length(unique(comp$gvkey))
-### 2800 firms with 20 years
+### 2176 firms with 20 years of data
 table(comp$time)
 # download comp header which has more info on location etc
 comp_header <- tbl(wrds_con, sql("SELECT * FROM crsp.comphead")) %>% 
   mutate(gvkey = as.numeric(gvkey)) %>% 
   collect()
 
+
 # merge in state of incorporation and industry information
-comp <- comp %>% 
-  left_join(comp_header %>% select(gvkey, incorp, sic)) %>% 
+comp_dat <- comp %>% 
+  left_join(comp_header %>% select(gvkey, incorp, sic, state, gsector)) %>% 
   # clean up SIC code - use historical sic code if available, if not use header sic
   mutate(sich = coalesce(sich, sic))
 
-# make sure that each firm has at least 25 observations and no missingness
-comp <- comp %>% 
+
+# winsorize 
+comp_dat <- comp_dat %>% 
+  ungroup() %>% 
+  mutate(revt_win = case_when(is.na(revt) ~ NA_real_,
+                          revt < quantile(revt, 0.15, na.rm = TRUE) ~ quantile(revt, 0.15, na.rm = TRUE),
+                          revt > quantile(revt, 0.85, na.rm = TRUE) ~ quantile(revt, 0.85, na.rm = TRUE),
+                          TRUE ~ revt),
+         revt = case_when(is.na(revt) ~ NA_real_,
+                          revt < quantile(revt, 0.025, na.rm = TRUE) ~ quantile(revt, 0.025, na.rm = TRUE),
+                          revt > quantile(revt, 0.975, na.rm = TRUE) ~ quantile(revt, 0.975, na.rm = TRUE),
+                          TRUE ~ revt),
+         log_rev = log(revt),
+         log_rev_win = log(revt_win)) %>% 
+  arrange(gvkey, fyear) %>% 
   group_by(gvkey) %>% 
-  add_tally() %>% 
-  filter(n >= 20) %>% 
-  ungroup()
+  mutate(gvkey = as.numeric(gvkey)) %>% 
+  ungroup() %>% 
+  filter(fyear > 2000) %>% 
+  mutate(time = (fyear - 2000)) ### time counter
 
+length(unique(comp_dat$gvkey))
+table(comp_dat$time)
 
-# winsorize ROA at 99, and censor at -1
-wins <- function(x) {
-  # winsorize and return
-  case_when(
-    is.na(x) ~ NA_real_,
-    x < quantile(x, 0.01, na.rm = TRUE) ~ quantile(x, 0.01, na.rm = TRUE),
-    x > quantile(x, 0.99, na.rm = TRUE) ~ quantile(x, 0.99, na.rm = TRUE),
-    TRUE ~ x
-  )
-}
-
-# winsorize ROA by year
-comp <- comp %>% 
-  mutate(roa = wins(roa),
-  revt = wins(revt), 
-  log_rev = log(revt+1)) %>% 
-  arrange(gvkey, fyear)
 
 # save
-saveRDS(comp, here::here("Data", "simulation_data_new_panel.rds"))
+# downloaded on Monday, Sept. 15, 2025
+saveRDS(comp_dat, here::here("Data", "simulation_data_new_panel_092025.rds"))

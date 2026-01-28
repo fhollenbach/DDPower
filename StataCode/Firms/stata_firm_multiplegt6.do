@@ -18,7 +18,7 @@ local i = 36001
 while `i' < 40001 {
 	clear
 	import delimited "Data_firms_`i'.csv"
-	capture did_multiplegt_dyn y gvkey time post_period, cluster(gvkey) effects(15) graph_off
+	capture did_multiplegt_dyn y_log firm_id time post_period, cluster(firm_id) effects(11) graph_off
     matrix results_CdH = ( results_CdH \ `i', -100, e(Av_tot_effect) , e(se_avg_total_effect) )
 	display `i'
 	local i = `i'+1

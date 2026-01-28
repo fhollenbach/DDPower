@@ -7,7 +7,7 @@ set more off
 set graphics off
 
 cd "//Users//fho.egb//Documents//GitHub//SimData_firms//"
-matrix results_step = (1, 1, 1, 1)
+matrix results_step = (1, 1, 1)
 
 	
 set seed 12345
@@ -15,13 +15,13 @@ set matsize 11000
 
 local i = 1
 
-while `i' < 4001 {
+while `i' < 5001 {
 	clear
 	import delimited "Data_firms_`i'.csv"
-	sort gvkey time
-	by gvkey: egen group = min(time) if post_period == 1
-	capture did_stepwise y gvkey time group, agg cluster(gvkey) minn(0)
-	matrix results_step = ( results_step \ `i' , -100,  e(b)[1,"tau_average"] , e(V)["tau_average", "tau_average"] )
+	sort firm_id time
+	by firm_id: egen group = min(time) if post_period == 1
+	capture did_stepwise y_log firm_id time group, agg cluster(firm_id) minn(0)
+	matrix results_step = ( results_step \ `i' ,  e(b)[1,"tau_average"] , e(V)["tau_average", "tau_average"] )
 	display `i'
 	local i = `i'+1
 }
